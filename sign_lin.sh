@@ -3,8 +3,10 @@
 set -e
 set -x
 
+echo '***** Load environment *****'
 source cliqz_env.sh
 
+echo '***** Loading complete  *****'
 cd $SRC_BASE
 cd $OBJ_DIR
 

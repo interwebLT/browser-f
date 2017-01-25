@@ -85,8 +85,8 @@ else
   export MOZ_BUILD_DATE=$CQZ_BUILD_ID
 fi
 
-OBJ_DIR=$MOZ_OBJDIR
-SRC_BASE=mozilla-release
+export OBJ_DIR=$MOZ_OBJDIR
+export SRC_BASE=mozilla-release
 if [ $IS_MAC_OS ]; then
   OBJ_DIR=$I386DIR
 fi
