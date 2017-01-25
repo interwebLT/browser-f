@@ -71,7 +71,7 @@ docker.image(imageName).inside() {
         }
       }
     }
-
+    def workspace = pwd()
     withCredentials([[
         $class: 'UsernamePasswordMultiBinding',
         credentialsId: CQZ_AWS_CREDENTIAL_ID,
@@ -83,18 +83,14 @@ docker.image(imageName).inside() {
           withCredentials([
               [$class: 'FileBinding', credentialsId: DEBIAN_GPG_KEY_CREDENTIAL_ID, variable: 'DEBIAN_GPG_KEY'],
               [$class: 'StringBinding', credentialsId: DEBIAN_GPG_PASS_CREDENTIAL_ID, variable: 'DEBIAN_GPG_PASS']]) {
-
-            writeFile file: 'debian.gpg.pass', text: '$DEBIAN_GPG_PASS'
-            //sh 'echo $DEBIAN_GPG_PASS > debian.gpg.pass'
-
+              sh "echo $DEBIAN_GPG_PASS > ${workspace}/debian.gpg.pass"
               withEnv([
                   "CQZ_S3_DEBIAN_REPOSITORY_URL=$CQZ_S3_DEBIAN_REPOSITORY_URL"]) {
-
                 sh './sign_lin.sh'
               }
           }
         } finally {
-          sh 'rm -rf debian.gpg.pass'
+          sh "rm -rf ${workspace}/debian.gpg.pass"
         }
       }
 
