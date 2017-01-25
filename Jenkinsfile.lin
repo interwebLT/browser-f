@@ -84,7 +84,8 @@ docker.image(imageName).inside() {
               [$class: 'FileBinding', credentialsId: DEBIAN_GPG_KEY_CREDENTIAL_ID, variable: 'DEBIAN_GPG_KEY'],
               [$class: 'StringBinding', credentialsId: DEBIAN_GPG_PASS_CREDENTIAL_ID, variable: 'DEBIAN_GPG_PASS']]) {
 
-            sh 'echo $DEBIAN_GPG_PASS > debian.gpg.pass'
+            writeFile file: 'debian.gpg.pass', text: '$DEBIAN_GPG_PASS'
+            //sh 'echo $DEBIAN_GPG_PASS > debian.gpg.pass'
 
               withEnv([
                   "CQZ_S3_DEBIAN_REPOSITORY_URL=$CQZ_S3_DEBIAN_REPOSITORY_URL"]) {
