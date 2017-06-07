@@ -253,7 +253,7 @@ ${StrTok}
 ; set the update channel to beta.
 !ifdef OFFICIAL
 !ifdef BETA_UPDATE_CHANNEL
-;CLIQZ. Don't use this
+;Cliqz. Don't use this
 ;!undef URLStubDownload32
 ;!undef URLStubDownload64
 ;!define URLStubDownload32 "http://download.mozilla.org/?os=win&lang=${AB_CD}&product=firefox-beta-latest"
@@ -430,7 +430,7 @@ Function .onInit
   StrCpy $InitialInstallDir "$INSTDIR"
 
   ClearErrors
-  WriteRegStr HKLM "Software\CLIQZ" "${BrandShortName}InstallerTest" \
+  WriteRegStr HKLM "Software\Cliqz" "${BrandShortName}InstallerTest" \
                    "Write Test"
 
   ; Only display set as default when there is write access to HKLM and on Win7
@@ -440,7 +440,7 @@ Function .onInit
     StrCpy $CanSetAsDefault "false"
     StrCpy $CheckboxSetAsDefault "0"
   ${Else}
-    DeleteRegValue HKLM "Software\CLIQZ" "${BrandShortName}InstallerTest"
+    DeleteRegValue HKLM "Software\Cliqz" "${BrandShortName}InstallerTest"
     StrCpy $CanSetAsDefault "true"
   ${EndIf}
 
@@ -617,7 +617,7 @@ Function SendPing
     ; completion of all phases.
     ${GetSecondsElapsed} "$EndInstallPhaseTickCount" "$EndFinishPhaseTickCount" $4
 
-    ; CLIQZ. Don't support 64-bit yet
+    ; Cliqz. Don't support 64-bit yet
     ;${If} $DroplistArch == "$(VERSION_64BIT)"
     ;  StrCpy $R0 "1"
     ;${Else}
@@ -660,12 +660,12 @@ Function SendPing
     ${EndIf}
 
     ClearErrors
-    WriteRegStr HKLM "Software\CLIQZ" "${BrandShortName}InstallerTest" \
+    WriteRegStr HKLM "Software\Cliqz" "${BrandShortName}InstallerTest" \
                      "Write Test"
     ${If} ${Errors}
       StrCpy $R8 "0"
     ${Else}
-      DeleteRegValue HKLM "Software\CLIQZ" "${BrandShortName}InstallerTest"
+      DeleteRegValue HKLM "Software\Cliqz" "${BrandShortName}InstallerTest"
       StrCpy $R8 "1"
     ${EndIf}
 
@@ -681,17 +681,17 @@ Function SendPing
       ${GetParent} "$R2" $R3
       ${GetLongPath} "$R3" $R3
       ${If} $R3 == $INSTDIR
-        StrCpy $R2 "1" ; This CLIQZ install is set as default.
+        StrCpy $R2 "1" ; This Cliqz install is set as default.
       ${Else}
-        StrCpy $R2 "$R2" "" -9 # length of CLIQZ.exe
+        StrCpy $R2 "$R2" "" -9 # length of Cliqz.exe
         ${If} "$R2" == "${FileMainEXE}"
-          StrCpy $R2 "2" ; Another CLIQZ install is set as default.
+          StrCpy $R2 "2" ; Another Cliqz install is set as default.
         ${Else}
           StrCpy $R2 "0"
         ${EndIf}
       ${EndIf}
     ${Else}
-      StrCpy $R2 "0" ; CLIQZ is not set as default.
+      StrCpy $R2 "0" ; Cliqz is not set as default.
     ${EndIf}
 
     ${If} "$R2" == "0"
@@ -711,17 +711,17 @@ Function SendPing
             ${GetParent} "$R2" $R3
             ${GetLongPath} "$R3" $R3
             ${If} $R3 == $INSTDIR
-              StrCpy $R2 "1" ; This CLIQZ install is set as default.
+              StrCpy $R2 "1" ; This Cliqz install is set as default.
             ${Else}
-              StrCpy $R2 "$R2" "" -9 # length of CLIQZ.exe
+              StrCpy $R2 "$R2" "" -9 # length of Cliqz.exe
               ${If} "$R2" == "${FileMainEXE}"
-                StrCpy $R2 "2" ; Another CLIQZ install is set as default.
+                StrCpy $R2 "2" ; Another Cliqz install is set as default.
               ${Else}
                 StrCpy $R2 "0"
               ${EndIf}
             ${EndIf}
           ${Else}
-            StrCpy $R2 "0" ; CLIQZ is not set as default.
+            StrCpy $R2 "0" ; Cliqz is not set as default.
           ${EndIf}
         ${EndIf}
       ${EndUnless}
@@ -1101,12 +1101,12 @@ Function createOptions
 
   ${If} $0 == "true"
     ; Only show the maintenance service checkbox if we have write access to HKLM
-    DeleteRegValue HKLM "Software\CLIQZ" "${BrandShortName}InstallerTest"
+    DeleteRegValue HKLM "Software\Cliqz" "${BrandShortName}InstallerTest"
     ClearErrors
-    WriteRegStr HKLM "Software\CLIQZ" "${BrandShortName}InstallerTest" \
+    WriteRegStr HKLM "Software\Cliqz" "${BrandShortName}InstallerTest" \
                      "Write Test"
     ${IfNot} ${Errors}
-      DeleteRegValue HKLM "Software\CLIQZ" "${BrandShortName}InstallerTest"
+      DeleteRegValue HKLM "Software\Cliqz" "${BrandShortName}InstallerTest"
       ; Read the registry instead of using ServicesHelper::IsInstalled so the
       ; plugin isn't included in the stub installer to lessen its size.
       ClearErrors
@@ -1139,7 +1139,7 @@ Function createOptions
   ${EndIf}
 !endif
 
-; CLIQZ. Don't support 64-bit yet, remove selector from Options page
+; Cliqz. Don't support 64-bit yet, remove selector from Options page
 !ifdef 0
   ${If} ${RunningX64}
     ; Get the exact pixel width we're going to need for this label.
@@ -1423,7 +1423,7 @@ Function createInstall
     StrCpy $ExistingBuildID "0"
   ${EndIf}
 
-  ${If} ${FileExists} "$LOCALAPPDATA\CLIQZ"
+  ${If} ${FileExists} "$LOCALAPPDATA\Cliqz"
     StrCpy $ExistingProfile "1"
   ${Else}
     StrCpy $ExistingProfile "0"
@@ -1860,7 +1860,7 @@ Function FinishInstall
     ; If we have something other than empty string now, write the value.
     ${If} "$0" != ""
       ClearErrors
-      WriteRegStr HKCU "Software\CLIQZ" "OldDefaultBrowserCommand" "$0"
+      WriteRegStr HKCU "Software\Cliqz" "OldDefaultBrowserCommand" "$0"
     ${EndIf}
 
     ${GetParameters} $0
@@ -2170,8 +2170,8 @@ Function CopyPostSigningData
     ClearErrors
     StrCpy $PostSigningData "0"
   ${Else}
-    CreateDirectory "$LOCALAPPDATA\CLIQZ"
-    CopyFiles /SILENT "$EXEDIR\postSigningData" "$LOCALAPPDATA\CLIQZ"
+    CreateDirectory "$LOCALAPPDATA\Cliqz"
+    CopyFiles /SILENT "$EXEDIR\postSigningData" "$LOCALAPPDATA\Cliqz"
   ${Endif}
 FunctionEnd
 

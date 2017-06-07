@@ -9,7 +9,7 @@
   System::Call "kernel32::GetCurrentProcessId() i.r0"
   System::Call "kernel32::ProcessIdToSessionId(i $0, *i ${NSIS_MAX_STRLEN} r9)"
 
-  ; CLIQZ. Before processing futher - check and fix registry
+  ; Cliqz. Before processing futher - check and fix registry
   Call FixCliqzAsFirefoxRegistry
 
   ; Determine if we're the protected UserChoice default or not. If so fix the
@@ -29,10 +29,10 @@
   ${CreateShortcutsLog}
 
   ; Remove registry entries for non-existent apps and for apps that point to our
-  ; install location in the Software\CLIQZ key and uninstall registry entries
+  ; install location in the Software\Cliqz key and uninstall registry entries
   ; that point to our install location for both HKCU and HKLM.
   SetShellVarContext current  ; Set SHCTX to the current user (e.g. HKCU)
-  ${RegCleanMain} "Software\CLIQZ"
+  ${RegCleanMain} "Software\Cliqz"
   ${RegCleanUninstall}
   ${UpdateProtocolHandlers}
 
@@ -43,14 +43,14 @@
   Call FixShortcutAppModelIDs
 
   ClearErrors
-  WriteRegStr HKLM "Software\CLIQZ" "${BrandShortName}InstallerTest" "Write Test"
+  WriteRegStr HKLM "Software\Cliqz" "${BrandShortName}InstallerTest" "Write Test"
   ${If} ${Errors}
     StrCpy $TmpVal "HKCU" ; used primarily for logging
   ${Else}
     SetShellVarContext all    ; Set SHCTX to all users (e.g. HKLM)
-    DeleteRegValue HKLM "Software\CLIQZ" "${BrandShortName}InstallerTest"
+    DeleteRegValue HKLM "Software\Cliqz" "${BrandShortName}InstallerTest"
     StrCpy $TmpVal "HKLM" ; used primarily for logging
-    ${RegCleanMain} "Software\CLIQZ"
+    ${RegCleanMain} "Software\Cliqz"
     ${RegCleanUninstall}
     ${UpdateProtocolHandlers}
     ${FixShellIconHandler} "HKLM"
@@ -91,9 +91,9 @@
       ${EndIf}
     ${EndIf}
 
-    ReadRegStr $0 HKLM "Software\cliqz.com\CLIQZ" "CurrentVersion"
+    ReadRegStr $0 HKLM "Software\cliqz.com\Cliqz" "CurrentVersion"
     ${If} "$0" != "${GREVersion}"
-      WriteRegStr HKLM "Software\cliqz.com\CLIQZ" "CurrentVersion" "${GREVersion}"
+      WriteRegStr HKLM "Software\cliqz.com\Cliqz" "CurrentVersion" "${GREVersion}"
     ${EndIf}
   ${EndIf}
 
@@ -142,7 +142,7 @@
     ${If} ${RunningX64}
       SetRegView 64
     ${EndIf}
-    ReadRegDWORD $5 HKLM "Software\CLIQZ\MaintenanceService" "Attempted"
+    ReadRegDWORD $5 HKLM "Software\Cliqz\MaintenanceService" "Attempted"
     ClearErrors
     ${If} ${RunningX64}
       SetRegView lastused
@@ -486,7 +486,7 @@
 !macroend
 !define FixShellIconHandler "!insertmacro FixShellIconHandler"
 
-; Add Software\CLIQZ\ registry entries (uses SHCTX).
+; Add Software\Cliqz\ registry entries (uses SHCTX).
 !macro SetAppKeys
   ; Check if this is an ESR release and if so add registry values so it is
   ; possible to determine that this is an ESR install (bug 726781).
@@ -499,14 +499,14 @@
   ${EndIf}
 
   ${GetLongPath} "$INSTDIR" $8
-  StrCpy $0 "Software\CLIQZ\${BrandFullNameInternal}\${AppVersion}$3 (${ARCH} ${AB_CD})\Main"
+  StrCpy $0 "Software\Cliqz\${BrandFullNameInternal}\${AppVersion}$3 (${ARCH} ${AB_CD})\Main"
   ${WriteRegStr2} $TmpVal "$0" "Install Directory" "$8" 0
   ${WriteRegStr2} $TmpVal "$0" "PathToExe" "$8\${FileMainEXE}" 0
 
-  StrCpy $0 "Software\CLIQZ\${BrandFullNameInternal}\${AppVersion}$3 (${ARCH} ${AB_CD})\Uninstall"
+  StrCpy $0 "Software\Cliqz\${BrandFullNameInternal}\${AppVersion}$3 (${ARCH} ${AB_CD})\Uninstall"
   ${WriteRegStr2} $TmpVal "$0" "Description" "${BrandFullNameInternal} ${AppVersion}$3 (${ARCH} ${AB_CD})" 0
 
-  StrCpy $0 "Software\CLIQZ\${BrandFullNameInternal}\${AppVersion}$3 (${ARCH} ${AB_CD})"
+  StrCpy $0 "Software\Cliqz\${BrandFullNameInternal}\${AppVersion}$3 (${ARCH} ${AB_CD})"
   ${WriteRegStr2} $TmpVal  "$0" "" "${AppVersion}$3 (${ARCH} ${AB_CD})" 0
   ${If} "$3" == ""
     DeleteRegValue SHCTX "$0" "ESR"
@@ -514,14 +514,14 @@
     ${WriteRegDWORD2} $TmpVal "$0" "ESR" 1 0
   ${EndIf}
 
-  StrCpy $0 "Software\CLIQZ\${BrandFullNameInternal} ${AppVersion}$3\bin"
+  StrCpy $0 "Software\Cliqz\${BrandFullNameInternal} ${AppVersion}$3\bin"
   ${WriteRegStr2} $TmpVal "$0" "PathToExe" "$8\${FileMainEXE}" 0
 
-  StrCpy $0 "Software\CLIQZ\${BrandFullNameInternal} ${AppVersion}$3\extensions"
+  StrCpy $0 "Software\Cliqz\${BrandFullNameInternal} ${AppVersion}$3\extensions"
   ${WriteRegStr2} $TmpVal "$0" "Components" "$8\components" 0
   ${WriteRegStr2} $TmpVal "$0" "Plugins" "$8\plugins" 0
 
-  StrCpy $0 "Software\CLIQZ\${BrandFullNameInternal} ${AppVersion}$3"
+  StrCpy $0 "Software\Cliqz\${BrandFullNameInternal} ${AppVersion}$3"
   ${WriteRegStr2} $TmpVal "$0" "GeckoVer" "${GREVersion}" 0
   ${If} "$3" == ""
     DeleteRegValue SHCTX "$0" "ESR"
@@ -529,7 +529,7 @@
     ${WriteRegDWORD2} $TmpVal "$0" "ESR" 1 0
   ${EndIf}
 
-  StrCpy $0 "Software\CLIQZ\${BrandFullNameInternal}$3"
+  StrCpy $0 "Software\Cliqz\${BrandFullNameInternal}$3"
   ${WriteRegStr2} $TmpVal "$0" "" "${GREVersion}" 0
   ${WriteRegStr2} $TmpVal "$0" "CurrentVersion" "${AppVersion}$3 (${ARCH} ${AB_CD})" 0
 !macroend
@@ -728,7 +728,7 @@
 ; For the cert to work, it must also be signed by a trusted cert for the user.
 !macro AddMaintCertKeys
   Push $R0
-  ; Allow main CLIQZ cert information for updates
+  ; Allow main Cliqz cert information for updates
   ; This call will push the needed key on the stack
   ServicesHelper::PathToUniqueRegistryPath "$INSTDIR"
   Pop $R0
@@ -749,7 +749,7 @@
     ; Setting the Attempted value will ensure that a new Maintenance Service
     ; install will never be attempted again after this from updates.  The value
     ; is used only to see if updates should attempt new service installs.
-    WriteRegDWORD HKLM "Software\CLIQZ\MaintenanceService" "Attempted" 1
+    WriteRegDWORD HKLM "Software\Cliqz\MaintenanceService" "Attempted" 1
 
     ; These values associate the allowed certificates for the current
     ; installation.
@@ -806,7 +806,7 @@
     RmDir /r /REBOOTOK "$INSTDIR\extensions\talkback@cliqz.com"
   ${EndIf}
 
-  ; Remove CLIQZ extension from distribution\extensions because now it must be
+  ; Remove Cliqz extension from distribution\extensions because now it must be
   ; in System Addon (browser\feature)
   ${If} ${FileExists} "$INSTDIR\distribution\extensions\cliqz@cliqz.com.xpi"
     Delete "$INSTDIR\distribution\extensions\cliqz@cliqz.com.xpi"
@@ -1325,19 +1325,19 @@ Function AddFirewallEntries
   ${EndIf}
 FunctionEnd
 
-; CLIQZ. Clean after accidently replaced data in FirefoxHTML and FirefoxURL
-; keys in registry with CLIQZ value. For now CLIQZ use it own identifiers
+; Cliqz. Clean after accidently replaced data in FirefoxHTML and FirefoxURL
+; keys in registry with Cliqz value. For now Cliqz use it own identifiers
 Function FixCliqzAsFirefoxRegistry
   ; Check values in HKCU, must be always accessible, delete inconsistent state
   ReadRegStr $0 HKCU "Software\Classes\FirefoxHTML" ""
-  ${If} $0 == "CLIQZ HTML Document"
+  ${If} $0 == "Cliqz HTML Document"
     DeleteRegKey HKCU "Software\Classes\FirefoxHTML"
     DeleteRegKey HKCU "Software\Classes\FirefoxURL"
   ${EndIf}
 
   ; Same check for HKLM, if can not delete - so, just can not
   ReadRegStr $0 HKLM "Software\Classes\FirefoxHTML" ""
-  ${If} $0 == "CLIQZ Document"
+  ${If} $0 == "Cliqz Document"
     DeleteRegKey HKLM "Software\Classes\FirefoxHTML"
     DeleteRegKey HKLM "Software\Classes\FirefoxURL"
   ${EndIf}

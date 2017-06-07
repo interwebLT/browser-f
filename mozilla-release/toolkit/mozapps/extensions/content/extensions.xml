@@ -1761,7 +1761,7 @@
     </handlers>
   </binding>
 
-  <!-- CLIQZ feature -->
+  <!-- Cliqz feature -->
   <binding id="cliqz-feature"
            extends="chrome://mozapps/content/extensions/extensions.xml#addon-base">
     <content>

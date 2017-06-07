@@ -158,7 +158,7 @@ typedef struct {
   const char* oldValueData;
 } SETTING;
 
-#define APP_REG_NAME L"CLIQZ"
+#define APP_REG_NAME L"Cliqz"
 #define VAL_FILE_ICON "%APPPATH%,1"
 #define VAL_OPEN "\"%APPPATH%\" -osint -url \"%1\""
 #define OLD_VAL_OPEN "\"%APPPATH%\" -requestPending -osint -url \"%1\""
@@ -783,7 +783,7 @@ nsWindowsShellService::InvokeHTTPOpenAsVerb()
   if (!StringBeginsWith(urlStr, NS_LITERAL_STRING("https://"))) {
     return NS_ERROR_FAILURE;
   }
-#if 0  // predefined in branding pref for CLIQZ browser
+#if 0  // predefined in branding pref for Cliqz browser
   urlStr.AppendLiteral("win10-default-browser");
 #endif
 

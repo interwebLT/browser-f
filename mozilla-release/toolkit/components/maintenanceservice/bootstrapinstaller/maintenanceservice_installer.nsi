@@ -45,7 +45,7 @@ Var BrandFullName
 ; And anyone that wants to run tests themselves should already have 
 ; this installed.
 !define FallbackKey \
-  "SOFTWARE\CLIQZ\MaintenanceService\3932ecacee736d366d6436db0f55bce4"
+  "SOFTWARE\Cliqz\MaintenanceService\3932ecacee736d366d6436db0f55bce4"
 
 !define CompanyName "Cliqz GmbH"
 !define BrandFullNameInternal ""
@@ -68,12 +68,12 @@ Name "${MaintFullName}"
 OutFile "maintenanceservice_installer.exe"
 
 ; Get installation folder from registry if available
-InstallDirRegKey HKLM "Software\CLIQZ\MaintenanceService" ""
+InstallDirRegKey HKLM "Software\Cliqz\MaintenanceService" ""
 
 SetOverwrite on
 
 !define MaintUninstallKey \
- "Software\Microsoft\Windows\CurrentVersion\Uninstall\CLIQZMaintenanceService"
+ "Software\Microsoft\Windows\CurrentVersion\Uninstall\CliqzMaintenanceService"
 
 ; Always install into the 32-bit location even if we have a 64-bit build.
 ; This is because we use only 1 service for all Firefox channels.
@@ -206,9 +206,9 @@ Section "MaintenanceService"
   ${If} ${RunningX64}
     SetRegView 64
   ${EndIf}
-  WriteRegDWORD HKLM "Software\CLIQZ\MaintenanceService" "Attempted" 1
-  WriteRegDWORD HKLM "Software\CLIQZ\MaintenanceService" "Installed" 1
-  DeleteRegValue HKLM "Software\CLIQZ\MaintenanceService" "FFPrefetchDisabled"
+  WriteRegDWORD HKLM "Software\Cliqz\MaintenanceService" "Attempted" 1
+  WriteRegDWORD HKLM "Software\Cliqz\MaintenanceService" "Installed" 1
+  DeleteRegValue HKLM "Software\Cliqz\MaintenanceService" "FFPrefetchDisabled"
 
   ; Included here for debug purposes only.  
   ; These keys are used to bypass the installation dir is a valid installation
@@ -263,8 +263,8 @@ Section "Uninstall"
   ${If} ${RunningX64}
     SetRegView 64
   ${EndIf}
-  DeleteRegValue HKLM "Software\CLIQZ\MaintenanceService" "Installed"
-  DeleteRegValue HKLM "Software\CLIQZ\MaintenanceService" "FFPrefetchDisabled"
+  DeleteRegValue HKLM "Software\Cliqz\MaintenanceService" "Installed"
+  DeleteRegValue HKLM "Software\Cliqz\MaintenanceService" "FFPrefetchDisabled"
   DeleteRegKey HKLM "${FallbackKey}\"
   ${If} ${RunningX64}
     SetRegView lastused

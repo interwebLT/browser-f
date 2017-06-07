@@ -2103,7 +2103,7 @@
               this.mPanelContainer.appendChild(notificationbox);
             }
 
-            // CLIQZ. Passing underinitialized browser element (before binding
+            // Cliqz. Passing underinitialized browser element (before binding
             // constructor has finished) is highly undesired. That's why it's
             // done after browser's notificationbox in inserted into DOM tree.
             aTab.linkedBrowser = browser;
@@ -2754,7 +2754,7 @@
             // risk of displaying preloaded browsers that are at the end of the
             // deck if we remove the browser before the switch is complete, so
             // we alert the switcher in order to show a spinner instead.
-            // CLIQZ: once called after `this.tabContainer.removeChild(aTab)`
+            // Cliqz. Once called after `this.tabContainer.removeChild(aTab)`
             //   the spinner is shown infinitely after exiting Print Preview
             if (this._switcher) {
               this._switcher.onTabRemoved(aTab);
@@ -2861,7 +2861,7 @@
         <parameter name="aOtherTab"/>
         <body>
           <![CDATA[
-            // CLIQZ Auto-Forget-Tabs:
+            // Cliqz. Auto-Forget-Tabs:
             // Transfering a private tab to a non-private window is fine.
             // Transfering a normal tab to a private window is not.
             if (PrivateBrowsingUtils.isWindowPrivate(window) &&
@@ -6177,7 +6177,7 @@
                   sourceNode.ownerDocument.defaultView instanceof ChromeWindow &&
                   sourceNode.ownerDocument.documentElement.getAttribute("windowtype") == "navigator:browser" &&
                   sourceNode.ownerDocument.defaultView.gBrowser.tabContainer == sourceNode.parentNode) {
-                // CLIQZ Auto-Forget-Tabs:
+                // Cliqz. Auto-Forget-Tabs:
                 // Transfering a private tab to a non-private window is fine.
                 // Transfering a normal tab to a private window is not.
                 if (PrivateBrowsingUtils.isWindowPrivate(window) &&

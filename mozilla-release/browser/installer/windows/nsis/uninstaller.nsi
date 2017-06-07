@@ -37,7 +37,7 @@ RequestExecutionLevel user
 !define NO_LOG
 
 !define MaintUninstallKey \
- "Software\Microsoft\Windows\CurrentVersion\Uninstall\CLIQZMaintenanceService"
+ "Software\Microsoft\Windows\CurrentVersion\Uninstall\CliqzMaintenanceService"
 
 Var TmpVal
 Var MaintCertKey
@@ -188,7 +188,7 @@ Function un.UninstallServiceIfNotUsed
   ; Figure out the number of subkeys
   StrCpy $0 0
   ${Do}
-    EnumRegKey $1 HKLM "Software\CLIQZ\MaintenanceService" $0
+    EnumRegKey $1 HKLM "Software\Cliqz\MaintenanceService" $0
     ${If} "$1" == ""
       ${ExitDo}
     ${EndIf}
@@ -256,7 +256,7 @@ Section "Uninstall"
   ${un.InitHashAppModelId} "$INSTDIR" "Software\${AppName}\TaskBarIDs"
 
   SetShellVarContext current  ; Set SHCTX to HKCU
-  ${un.RegCleanMain} "Software\CLIQZ"
+  ${un.RegCleanMain} "Software\Cliqz"
   ${un.RegCleanUninstall}
   ${un.DeleteShortcuts}
 
@@ -267,21 +267,21 @@ Section "Uninstall"
   ${EndIf}
 
   ; Remove the updates directory for Vista and above
-  ${un.CleanUpdateDirectories} "CLIQZ" "CLIQZ\updates"
+  ${un.CleanUpdateDirectories} "Cliqz" "Cliqz\updates"
 
   ; Remove any app model id's stored in the registry for this install path
   DeleteRegValue HKCU "Software\${AppName}\TaskBarIDs" "$INSTDIR"
   DeleteRegValue HKLM "Software\${AppName}\TaskBarIDs" "$INSTDIR"
 
   ClearErrors
-  WriteRegStr HKLM "Software\CLIQZ" "${BrandShortName}InstallerTest" "Write Test"
+  WriteRegStr HKLM "Software\Cliqz" "${BrandShortName}InstallerTest" "Write Test"
   ${If} ${Errors}
     StrCpy $TmpVal "HKCU" ; used primarily for logging
   ${Else}
     SetShellVarContext all  ; Set SHCTX to HKLM
-    DeleteRegValue HKLM "Software\CLIQZ" "${BrandShortName}InstallerTest"
+    DeleteRegValue HKLM "Software\Cliqz" "${BrandShortName}InstallerTest"
     StrCpy $TmpVal "HKLM" ; used primarily for logging
-    ${un.RegCleanMain} "Software\CLIQZ"
+    ${un.RegCleanMain} "Software\Cliqz"
     ${un.RegCleanUninstall}
     ${un.DeleteShortcuts}
     ${un.SetAppLSPCategories}
@@ -311,10 +311,10 @@ Section "Uninstall"
   ${EndIf}
 
   SetShellVarContext all  ; Set SHCTX to HKLM
-  ${un.GetSecondInstallPath} "Software\CLIQZ" $R9
+  ${un.GetSecondInstallPath} "Software\Cliqz" $R9
   ${If} $R9 == "false"
     SetShellVarContext current  ; Set SHCTX to HKCU
-    ${un.GetSecondInstallPath} "Software\CLIQZ" $R9
+    ${un.GetSecondInstallPath} "Software\Cliqz" $R9
   ${EndIf}
 
   StrCpy $0 "Software\Clients\StartMenuInternet\${FileMainEXE}\shell\open\command"
@@ -360,7 +360,7 @@ Section "Uninstall"
     StrCpy $0 "Software\Microsoft\MediaPlayer\ShimInclusionList\plugin-container.exe"
     DeleteRegKey HKLM "$0"
     DeleteRegKey HKCU "$0"
-    StrCpy $0 "Software\Classes\MIME\Database\Content Type\application/x-xpinstall;app=CLIQZ"
+    StrCpy $0 "Software\Classes\MIME\Database\Content Type\application/x-xpinstall;app=Cliqz"
     DeleteRegKey HKLM "$0"
     DeleteRegKey HKCU "$0"
   ${Else}
@@ -404,7 +404,7 @@ Section "Uninstall"
   ${If} ${FileExists} "$INSTDIR\defaults\pref\channel-prefs.js"
     Delete /REBOOTOK "$INSTDIR\defaults\pref\channel-prefs.js"
   ${EndIf}
-  ; CLIQZ Browser: remove distribution.js file on uninstall stage
+  ; Cliqz Browser: remove distribution.js file on uninstall stage
   ${If} ${FileExists} "$INSTDIR\defaults\pref\distribution.js"
     Delete /REBOOTOK "$INSTDIR\defaults\pref\distribution.js"
   ${EndIf}
@@ -461,7 +461,7 @@ Section "Uninstall"
   ; subsequently deleted after checking. If the value is found during startup
   ; the browser will offer to Reset Firefox. We use the UpdateChannel to match
   ; uninstalls of Firefox-release with reinstalls of Firefox-release, for example.
-  WriteRegStr HKCU "Software\CLIQZ" "Uninstalled-${UpdateChannel}" "True"
+  WriteRegStr HKCU "Software\Cliqz" "Uninstalled-${UpdateChannel}" "True"
 
 !ifdef MOZ_MAINTENANCE_SERVICE
   ; Get the path the allowed cert is at and remove it

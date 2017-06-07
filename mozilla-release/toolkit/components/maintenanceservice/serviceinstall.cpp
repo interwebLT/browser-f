@@ -23,7 +23,7 @@
 #pragma comment(lib, "version.lib")
 
 // This uninstall key is defined originally in maintenanceservice_installer.nsi
-#define MAINT_UNINSTALL_KEY L"Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\CLIQZMaintenanceService"
+#define MAINT_UNINSTALL_KEY L"Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\CliqzMaintenanceService"
 
 static BOOL
 UpdateUninstallerVersionString(LPWSTR versionString)

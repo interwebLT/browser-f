@@ -253,7 +253,7 @@ Section "-InstallStartCleanup"
   ${InitHashAppModelId} "$INSTDIR" "Software\${AppName}\TaskBarIDs"
 
   ; Remove the updates directory for Vista and above
-  ${CleanUpdateDirectories} "CLIQZ" "CLIQZ\updates"
+  ${CleanUpdateDirectories} "Cliqz" "Cliqz\updates"
 
   ${RemoveDeprecatedFiles}
   ${RemovePrecompleteEntries} "false"
@@ -261,7 +261,7 @@ Section "-InstallStartCleanup"
   ${If} ${FileExists} "$INSTDIR\defaults\pref\channel-prefs.js"
     Delete "$INSTDIR\defaults\pref\channel-prefs.js"
   ${EndIf}
-  ; CLIQZ Browser: we don't replace already existing distribution.js file in pref
+  ; Cliqz Browser: we don't replace already existing distribution.js file in pref
   ${If} ${FileExists} "$INSTDIR\defaults\pref"
     RmDir "$INSTDIR\defaults\pref"
   ${EndIf}
@@ -340,25 +340,25 @@ Section "-Application" APP_IDX
 
   ${LogHeader} "Adding Registry Entries"
   SetShellVarContext current  ; Set SHCTX to HKCU
-  ${RegCleanMain} "Software\CLIQZ"
+  ${RegCleanMain} "Software\Cliqz"
   ${RegCleanUninstall}
   ${UpdateProtocolHandlers}
 
   ClearErrors
-  WriteRegStr HKLM "Software\CLIQZ" "${BrandShortName}InstallerTest" "Write Test"
+  WriteRegStr HKLM "Software\Cliqz" "${BrandShortName}InstallerTest" "Write Test"
   ${If} ${Errors}
     StrCpy $TmpVal "HKCU" ; used primarily for logging
   ${Else}
     SetShellVarContext all  ; Set SHCTX to HKLM
-    DeleteRegValue HKLM "Software\CLIQZ" "${BrandShortName}InstallerTest"
+    DeleteRegValue HKLM "Software\Cliqz" "${BrandShortName}InstallerTest"
     StrCpy $TmpVal "HKLM" ; used primarily for logging
-    ${RegCleanMain} "Software\CLIQZ"
+    ${RegCleanMain} "Software\Cliqz"
     ${RegCleanUninstall}
     ${UpdateProtocolHandlers}
 
-    ReadRegStr $0 HKLM "Software\cliqz.com\CLIQZ" "CurrentVersion"
+    ReadRegStr $0 HKLM "Software\cliqz.com\Cliqz" "CurrentVersion"
     ${If} "$0" != "${GREVersion}"
-      WriteRegStr HKLM "Software\cliqz.com\CLIQZ" "CurrentVersion" "${GREVersion}"
+      WriteRegStr HKLM "Software\cliqz.com\Cliqz" "CurrentVersion" "${GREVersion}"
     ${EndIf}
   ${EndIf}
 
@@ -626,7 +626,7 @@ Section "-InstallEndCleanup"
       ; If we have something other than empty string now, write the value.
       ${If} "$0" != ""
         ClearErrors
-        WriteRegStr HKCU "Software\CLIQZ" "OldDefaultBrowserCommand" "$0"
+        WriteRegStr HKCU "Software\Cliqz" "OldDefaultBrowserCommand" "$0"
       ${EndIf}
 
       ${LogHeader} "Setting as the default browser"
@@ -642,14 +642,14 @@ Section "-InstallEndCleanup"
     ${ElseIfNot} ${Errors}
       ${LogHeader} "Writing default-browser opt-out"
       ClearErrors
-      WriteRegStr HKCU "Software\CLIQZ" "DefaultBrowserOptOut" "True"
+      WriteRegStr HKCU "Software\Cliqz" "DefaultBrowserOptOut" "True"
       ${If} ${Errors}
         ${LogMsg} "Error writing default-browser opt-out"
       ${EndIf}
     ${EndIf}
   ${EndUnless}
   ; Adds a pinned Task Bar shortcut (see MigrateTaskBarShortcut for details).
-  ; CLIQZ: we want to have icon on taskbar in silent mode installation
+  ; Cliqz: we want to have icon on taskbar in silent mode installation
   ${MigrateTaskBarShortcut}
 
   ; Adds a pinned Task Bar shortcut (see MigrateTaskBarShortcut for details).
@@ -702,7 +702,7 @@ Section "-InstallEndCleanup"
     ${EndIf}
   ${EndIf}
 
-  ; CLIQZ: autolaunch in silent mode if /run switch exist
+  ; Cliqz: autolaunch in silent mode if /run switch exist
   ${If} ${Silent}
     ${GetParameters} $0
     ${GetOptions} "$0" "/run" $0
@@ -969,7 +969,7 @@ FunctionEnd
 !ifdef MOZ_MAINTENANCE_SERVICE
 Function preComponents
   ; If the service already exists, don't show this page
-  ServicesHelper::IsInstalled "CLIQZMaintenance"
+  ServicesHelper::IsInstalled "CliqzMaintenance"
   Pop $R9
   ${If} $R9 == 1
     ; The service already exists so don't show this page.
@@ -992,13 +992,13 @@ Function preComponents
 
   ; Only show the maintenance service page if we have write access to HKLM
   ClearErrors
-  WriteRegStr HKLM "Software\CLIQZ" \
+  WriteRegStr HKLM "Software\Cliqz" \
               "${BrandShortName}InstallerTest" "Write Test"
   ${If} ${Errors}
     ClearErrors
     Abort
   ${Else}
-    DeleteRegValue HKLM "Software\CLIQZ" "${BrandShortName}InstallerTest"
+    DeleteRegValue HKLM "Software\Cliqz" "${BrandShortName}InstallerTest"
   ${EndIf}
 
   StrCpy $PageName "Components"
@@ -1064,9 +1064,9 @@ Function preSummary
 
   ; Check if it is possible to write to HKLM
   ClearErrors
-  WriteRegStr HKLM "Software\CLIQZ" "${BrandShortName}InstallerTest" "Write Test"
+  WriteRegStr HKLM "Software\Cliqz" "${BrandShortName}InstallerTest" "Write Test"
   ${Unless} ${Errors}
-    DeleteRegValue HKLM "Software\CLIQZ" "${BrandShortName}InstallerTest"
+    DeleteRegValue HKLM "Software\Cliqz" "${BrandShortName}InstallerTest"
     ; Check if Firefox is the http handler for this user.
     SetShellVarContext current ; Set SHCTX to the current user
     ${IsHandlerForInstallDir} "http" $R9

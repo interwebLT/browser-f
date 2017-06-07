@@ -45,7 +45,7 @@ Var BrandFullName
 ; And anyone that wants to run tests themselves should already have 
 ; this installed.
 !define FallbackKey \
-  "SOFTWARE\CLIQZ\MaintenanceService\3932ecacee736d366d6436db0f55bce4"
+  "SOFTWARE\Cliqz\MaintenanceService\3932ecacee736d366d6436db0f55bce4"
 
 !define CompanyName "Cliqz GmbH"
 !define BrandFullNameInternal ""
@@ -68,7 +68,7 @@ Name "${MaintFullName}"
 OutFile "maintenanceservice_installer.exe"
 
 ; Get installation folder from registry if available
-InstallDirRegKey HKLM "Software\CLIQZ\MaintenanceService" ""
+InstallDirRegKey HKLM "Software\Cliqz\MaintenanceService" ""
 
 SetOverwrite on
 
@@ -218,9 +218,9 @@ Section "MaintenanceService"
   ; want to install once on the first upgrade to maintenance service.
   ; Also write out that we are currently installed, preferences will check
   ; this value to determine if we should show the service update pref.
-  WriteRegDWORD HKLM "Software\CLIQZ\MaintenanceService" "Attempted" 1
-  WriteRegDWORD HKLM "Software\CLIQZ\MaintenanceService" "Installed" 1
-  DeleteRegValue HKLM "Software\CLIQZ\MaintenanceService" "FFPrefetchDisabled"
+  WriteRegDWORD HKLM "Software\Cliqz\MaintenanceService" "Attempted" 1
+  WriteRegDWORD HKLM "Software\Cliqz\MaintenanceService" "Installed" 1
+  DeleteRegValue HKLM "Software\Cliqz\MaintenanceService" "FFPrefetchDisabled"
 
   ; Included here for debug purposes only.  
   ; These keys are used to bypass the installation dir is a valid installation
@@ -295,34 +295,34 @@ Section "Uninstall"
   Push "$INSTDIR\logs\maintenanceservice-uninstall.log"
   Call un.RenameDelete
   SetShellVarContext all
-  Push "$APPDATA\CLIQZ\logs\maintenanceservice.log"
+  Push "$APPDATA\Cliqz\logs\maintenanceservice.log"
   Call un.RenameDelete
-  Push "$APPDATA\CLIQZ\logs\maintenanceservice-1.log"
+  Push "$APPDATA\Cliqz\logs\maintenanceservice-1.log"
   Call un.RenameDelete
-  Push "$APPDATA\CLIQZ\logs\maintenanceservice-2.log"
+  Push "$APPDATA\Cliqz\logs\maintenanceservice-2.log"
   Call un.RenameDelete
-  Push "$APPDATA\CLIQZ\logs\maintenanceservice-3.log"
+  Push "$APPDATA\Cliqz\logs\maintenanceservice-3.log"
   Call un.RenameDelete
-  Push "$APPDATA\CLIQZ\logs\maintenanceservice-4.log"
+  Push "$APPDATA\Cliqz\logs\maintenanceservice-4.log"
   Call un.RenameDelete
-  Push "$APPDATA\CLIQZ\logs\maintenanceservice-5.log"
+  Push "$APPDATA\Cliqz\logs\maintenanceservice-5.log"
   Call un.RenameDelete
-  Push "$APPDATA\CLIQZ\logs\maintenanceservice-6.log"
+  Push "$APPDATA\Cliqz\logs\maintenanceservice-6.log"
   Call un.RenameDelete
-  Push "$APPDATA\CLIQZ\logs\maintenanceservice-7.log"
+  Push "$APPDATA\Cliqz\logs\maintenanceservice-7.log"
   Call un.RenameDelete
-  Push "$APPDATA\CLIQZ\logs\maintenanceservice-8.log"
+  Push "$APPDATA\Cliqz\logs\maintenanceservice-8.log"
   Call un.RenameDelete
-  Push "$APPDATA\CLIQZ\logs\maintenanceservice-9.log"
+  Push "$APPDATA\Cliqz\logs\maintenanceservice-9.log"
   Call un.RenameDelete
-  Push "$APPDATA\CLIQZ\logs\maintenanceservice-10.log"
+  Push "$APPDATA\Cliqz\logs\maintenanceservice-10.log"
   Call un.RenameDelete
-  Push "$APPDATA\CLIQZ\logs\maintenanceservice-install.log"
+  Push "$APPDATA\Cliqz\logs\maintenanceservice-install.log"
   Call un.RenameDelete
-  Push "$APPDATA\CLIQZ\logs\maintenanceservice-uninstall.log"
+  Push "$APPDATA\Cliqz\logs\maintenanceservice-uninstall.log"
   Call un.RenameDelete
-  RMDir /REBOOTOK "$APPDATA\CLIQZ\logs"
-  RMDir /REBOOTOK "$APPDATA\CLIQZ"
+  RMDir /REBOOTOK "$APPDATA\Cliqz\logs"
+  RMDir /REBOOTOK "$APPDATA\Cliqz"
   RMDir /REBOOTOK "$INSTDIR\logs"
   RMDir /REBOOTOK "$INSTDIR\update"
   RMDir /REBOOTOK "$INSTDIR"
@@ -331,8 +331,8 @@ Section "Uninstall"
     SetRegView 64
   ${EndIf}
   DeleteRegKey HKLM "${MaintUninstallKey}"
-  DeleteRegValue HKLM "Software\CLIQZ\MaintenanceService" "Installed"
-  DeleteRegValue HKLM "Software\CLIQZ\MaintenanceService" "FFPrefetchDisabled"
+  DeleteRegValue HKLM "Software\Cliqz\MaintenanceService" "Installed"
+  DeleteRegValue HKLM "Software\Cliqz\MaintenanceService" "FFPrefetchDisabled"
   DeleteRegKey HKLM "${FallbackKey}\"
   ${If} ${RunningX64}
     SetRegView lastused

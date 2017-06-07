@@ -360,5 +360,5 @@ user_pref("media.openUnsupportedTypeWithExternalApp", false);
 // influenced by the presence of the persistent doorhanger notification.
 user_pref("signon.rememberSignons", false);
 
-// CLIQZ ignore onboarding
+// Cliqz ignore onboarding
 user_pref("extensions.cliqz.browserOnboarding", true);

@@ -1521,7 +1521,7 @@ this.XPIDatabase = {
     // TODO: Remove that
     setTimeout(function() {
       try {
-        Components.utils.import('chrome://cliqzmodules/content/CLIQZ.jsm')
+        Components.utils.import('chrome://cliqzmodules/content/cliqz.jsm')
           .CLIQZ.CliqzUtils.telemetry({
             type: "addon",
             addonType: type || null,
@@ -1530,7 +1530,7 @@ this.XPIDatabase = {
           });
       }
       catch (e) {
-        logger.warn("Could not report through CLIQZ Extension telemetry", e);
+        logger.warn("Could not report through Cliqz Extension telemetry", e);
       }
     }, 5000);
   },

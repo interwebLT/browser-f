@@ -14446,7 +14446,7 @@ nsDocShell::GetOriginAttributes(JSContext* aCx,
 bool
 nsDocShell::CanSetOriginAttributes()
 {
-  // TODO: CLIQZ, find a better way to switch tab's privateness. See DB-1260.
+  // TODO: Cliqz, find a better way to switch tab's privateness. See DB-1260.
   return true;
 
   MOZ_ASSERT(mChildList.IsEmpty());

@@ -994,7 +994,7 @@ function isServiceInstalled() {
       let wrk = Cc["@mozilla.org/windows-registry-key;1"].
                 createInstance(Ci.nsIWindowsRegKey);
       wrk.open(wrk.ROOT_KEY_LOCAL_MACHINE,
-               "SOFTWARE\\CLIQZ\\MaintenanceService",
+               "SOFTWARE\\Cliqz\\MaintenanceService",
                wrk.ACCESS_READ | wrk.WOW64_64);
       installed = wrk.readIntValue("Installed");
       wrk.close();
@@ -1617,7 +1617,7 @@ function Update(update) {
   }
   this.name = name;
 #endif
-  // In CLIQZ we always use just the current product name.
+  // In Cliqz we always use just the current product name.
   var brandBundle = Services.strings.createBundle(URI_BRAND_PROPERTIES);
   this.name = brandBundle.GetStringFromName("brandShortName");
 }
